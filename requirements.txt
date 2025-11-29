@@ -11,3 +11,4 @@ daphne==4.0.0
 whitenoise==6.6.0
 django-cors-headers==4.3.1
 redis==5.0.1
+dj-database-url==2.1.0

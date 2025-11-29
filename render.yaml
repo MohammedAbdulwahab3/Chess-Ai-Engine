@@ -2,9 +2,8 @@ services:
   # Django Web Service
   - type: web
     name: chess-backend
-    env: python
-    buildCommand: "./build.sh"
-    startCommand: "daphne -b 0.0.0.0 -p $PORT chess_backend.asgi:application"
+    env: docker
+    plan: free
     envVars:
       - key: PYTHON_VERSION
         value: 3.12.0
