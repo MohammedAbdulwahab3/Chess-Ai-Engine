@@ -1,0 +1,37 @@
+services:
+  # Django Web Service
+  - type: web
+    name: chess-backend
+    env: python
+    buildCommand: "./build.sh"
+    startCommand: "daphne -b 0.0.0.0 -p $PORT chess_backend.asgi:application"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.0
+      - key: DATABASE_URL
+        fromDatabase:
+          name: chess-db
+          property: connectionString
+      - key: REDIS_HOST
+        fromService:
+          name: chess-redis
+          type: redis
+          property: host
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: False
+      - key: ALLOWED_HOSTS
+        value: "*"
+      - key: STOCKFISH_PATH
+        value: /usr/games/stockfish
+
+  # PostgreSQL Database
+databases:
+  - name: chess-db
+    databaseName: chess_game
+    user: chess_user
+
+  # Redis for Channels
+  - name: chess-redis
+    plan: starter
