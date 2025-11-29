@@ -1,171 +1,103 @@
-# Fullstack Chess Game - Flutter & Django
+# ♟️ Chess AI Engine & Fullstack Application
 
-## 🎮 Project Overview
+![Flutter](https://img.shields.io/badge/Flutter-%2302569B.svg?style=for-the-badge&logo=Flutter&logoColor=white)
+![Django](https://img.shields.io/badge/django-%23092E20.svg?style=for-the-badge&logo=django&logoColor=white)
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+![Dart](https://img.shields.io/badge/dart-%230175C2.svg?style=for-the-badge&logo=dart&logoColor=white)
+![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white)
 
-A real-time multiplayer chess game with AI opponent support, built with Flutter (frontend) and Django (backend).
+A powerful, real-time multiplayer chess platform featuring a **Hybrid AI Engine** that combines traditional Stockfish analysis with a custom Deep Reinforcement Learning model. Built with a robust Django backend and a sleek Flutter frontend.
 
-### Features
-- ✅ User authentication (register, login, JWT)
-- ✅ Play against AI (Stockfish engine with 3 difficulty levels)
-- ✅ Play online against other players
-- ✅ Real-time game updates via WebSockets
-- ✅ Game history and statistics
-- ✅ ELO rating system
-- ✅ Beautiful, modern UI
+## ✨ Key Features
 
-## 🚀 Quick Start
+### 🧠 Advanced AI Engine
+- **Hybrid Architecture**: Seamlessly switches between Stockfish and custom RL models.
+- **Deep Reinforcement Learning**: Custom-trained neural network (`ai_engine/rl_model`) capable of self-play and robust training.
+- **Watch Mode**: Visualize AI decision-making and training progress in real-time.
+- **Difficulty Levels**: Adaptive difficulty settings for players of all skill levels.
 
-### Backend Setup (Django)
+### 🎮 Immersive Gameplay
+- **Real-time Multiplayer**: Low-latency WebSocket connections for seamless online play.
+- **Cross-Platform**: Fully responsive Flutter app for Mobile (iOS/Android), Web, and Desktop.
+- **Interactive Board**: Smooth drag-and-drop mechanics with legal move highlighting.
+- **Game History**: Detailed move logs and historical game analysis.
+
+### 🛡️ Secure & Scalable
+- **Authentication**: Secure JWT-based user registration and login.
+- **Profile Management**: Track ELO ratings, win/loss stats, and match history.
+- **Production Ready**: Configured for deployment on Render with Docker support.
+
+---
+
+## 🚀 Quick Start Guide
+
+### 1️⃣ Backend Setup (Django)
 
 ```bash
-cd /home/maw/Desktop/trying
+# Clone the repository
+git clone https://github.com/MohammedAbdulwahab3/Chess-Ai-Engine.git
+cd Chess-Ai-Engine
 
-# Activate virtual environment
-source venv/bin/activate
+# Create and activate virtual environment
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
 
-# Run migrations (already done)
+# Install dependencies
+pip install -r requirements.txt
+
+# Run migrations
 python manage.py migrate
 
-# Create a superuser (optional)
-python manage.py createsuperuser
-
-# Run the development server
+# Start the server
 python manage.py runserver
 ```
+*Backend runs at `http://localhost:8000`*
 
-The backend will be available at `http://localhost:8000`
-
-### Frontend Setup (Flutter)
+### 2️⃣ Frontend Setup (Flutter)
 
 ```bash
-cd /home/maw/Desktop/trying/chess_flutter
+cd chess_flutter
 
-# Get dependencies (already done)
+# Install dependencies
 flutter pub get
 
-# Update API URL in lib/core/constants/api_constants.dart if needed
-
-# Run the app
+# Run the application
 flutter run
 ```
 
-## 📁 Project Structure
+---
 
-### Backend (`/home/maw/Desktop/trying/`)
-```
-├── accounts/           # User authentication
-├── game/              # Chess game logic
-├── ai_engine/         # Stockfish AI integration
-├── chess_backend/     # Django settings
-├── requirements.txt   # Python dependencies
-├── render.yaml        # Render deployment config
-└── build.sh          # Build script for deployment
-```
+## � Project Architecture
 
-### Frontend (`/home/maw/Desktop/trying/chess_flutter/`)
-```
-├── lib/
-│   ├── core/          # API client, constants
-│   ├── data/          # Models, repositories
-│   ├── providers/     # Riverpod state management
-│   ├── screens/       # UI screens
-│   └── main.dart      # App entry point
-└── pubspec.yaml       # Flutter dependencies
-```
+### Backend Structure (`/`)
+| Directory | Description |
+|-----------|-------------|
+| `ai_engine/` | **Core AI Logic**: Contains `rl_model` (Neural Networks), `stockfish_engine.py`, and training scripts. |
+| `game/` | **Game Logic**: Handles move validation, board state, and WebSocket consumers. |
+| `accounts/` | **User Management**: Auth views, models, and JWT configuration. |
+| `chess_backend/` | **Project Settings**: URL routing, ASGI/WSGI config. |
 
-## 🎯 API Endpoints
+### Frontend Structure (`chess_flutter/lib/`)
+| Directory | Description |
+|-----------|-------------|
+| `screens/` | UI Screens: `game`, `auth`, `home`, `watch_model`. |
+| `providers/` | State Management (Riverpod). |
+| `data/` | API repositories and data models. |
+| `core/` | Constants, API clients, and utilities. |
 
-### Authentication
-- `POST /api/auth/register/` - Register new user
-- `POST /api/auth/login/` - Login
-- `GET /api/auth/profile/` - Get user profile
+---
 
-### Games
-- `GET /api/games/` - List user's games
-- `POST /api/games/` - Create new game
-- `GET /api/games/{id}/` - Get game details
-- `POST /api/games/{id}/join/` - Join a game
-- `POST /api/games/{id}/move/` - Make a move
-- `GET /api/games/available/` - List available games
+## 🛠️ Tech Stack
 
-### AI
-- `POST /api/ai/games/{id}/ai-move/` - Get AI move
-
-### WebSocket
-- `ws://localhost:8000/ws/game/{id}/` - Real-time game updates
-
-## 🎮 How to Play
-
-1. **Register/Login**: Create an account or login
-2. **Choose Game Mode**:
-   - **vs AI**: Select difficulty (easy/medium/hard) and your color
-   - **vs Player**: Create a game and wait for opponent, or join an existing game
-3. **Play**: Make moves by dragging pieces on the board
-4. **View History**: See your past games and statistics
-
-## 🛠️ Technologies Used
-
-### Backend
-- Django 4.2
-- Django REST Framework
-- Django Channels (WebSockets)
-- PostgreSQL
-- Stockfish (Chess AI)
-- JWT Authentication
-
-### Frontend
-- Flutter 3.x
-- Riverpod (State Management)
-- flutter_chess_board
-- HTTP & WebSocket clients
-
-## 🚢 Deployment
-
-### Render (Backend)
-The project includes `render.yaml` for easy deployment to Render:
-
-1. Push code to GitHub
-2. Connect repository to Render
-3. Render will automatically:
-   - Install dependencies
-   - Install Stockfish
-   - Run migrations
-   - Deploy the app
-
-### Flutter (Frontend)
-Build for your target platform:
-
-```bash
-# Android
-flutter build apk
-
-# iOS
-flutter build ios
-
-# Web
-flutter build web
-```
-
-## 📝 Notes
-
-- Backend uses SQLite for development (change to PostgreSQL for production)
-- Update `ApiConstants.baseUrl` in Flutter app to point to your backend
-- Stockfish binary must be installed on the server
-- Redis is required for WebSocket support in production
-
-## 🎨 Screenshots
-
-The app features:
-- Modern dark theme
-- Gradient backgrounds
-- Smooth animations
-- Responsive design
-- Real-time updates
+- **Backend**: Django 4.2, Django REST Framework, Django Channels (WebSockets), Redis (optional for prod).
+- **AI/ML**: PyTorch, NumPy, Stockfish Binary.
+- **Frontend**: Flutter 3.x, Riverpod, flutter_chess_board.
+- **Database**: SQLite (Dev), PostgreSQL (Prod).
 
 ## 🤝 Contributing
 
-This is a complete fullstack chess game implementation with all core features working!
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## 📄 License
 
-MIT License
+This project is licensed under the MIT License.
